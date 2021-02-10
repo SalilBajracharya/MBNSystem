@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MBNSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="PANNo" Type="varchar" MaxLength="10" />
+          <Property Name="AssignedStaffHrid" Type="int" />
+          <Property Name="SBId" Type="varchar" MaxLength="4" />
+          <Property Name="SBVPN" Type="bit" />
+          <Property Name="SMSId" Type="varchar" MaxLength="4" />
+          <Property Name="UsesATM" Type="bit" />
+        </EntityType>
+        <EntityType Name="ClientsBranches">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsHO" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="BranchNo" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="PhoneNo" Type="varchar" MaxLength="500" />
+          <Property Name="EmailId" Type="varchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ClientsContacts">
+          <Key>
+            <PropertyRef Name="ClientContactId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="ClientContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="100" />
+          <Property Name="EmailId" Type="varchar" MaxLength="500" />
+          <Property Name="OfficeExt" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RolesMenus">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="MenuId" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="MenuId" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ExpiryDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPwdChangeDate" Type="datetime" Nullable="false" />
+          <Property Name="ChangePwd" Type="bit" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="HRId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserValidationRequests">
+          <Key>
+            <PropertyRef Name="Recid" />
+          </Key>
+          <Property Name="Recid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ValidationType" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ValidationExpiryDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ValidationKey" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ValidationPin" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ValidationStatus" Type="int" />
+        </EntityType>
+        <Association Name="Fk_ClientsBranches_Clients_ClientId">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="ClientsBranches" Type="Self.ClientsBranches" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientsBranches">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ClientsContacts_ClientsBranches_BranchId">
+          <End Role="ClientsBranches" Type="Self.ClientsBranches" Multiplicity="1" />
+          <End Role="ClientsContacts" Type="Self.ClientsContacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientsBranches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="ClientsContacts">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_RolesMenus_MenuId">
+          <End Role="Menus" Type="Self.Menus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RolesMenus" Type="Self.RolesMenus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="RolesMenus">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_RolesMenus_Users">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RolesMenus" Type="Self.RolesMenus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolesMenus">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Users_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_UserValidationRequests_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserValidationRequests" Type="Self.UserValidationRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserValidationRequests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MBNSystemModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientsBranches" EntityType="Self.ClientsBranches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientsContacts" EntityType="Self.ClientsContacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserValidationRequests" EntityType="Self.UserValidationRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolesMenus" EntityType="Self.RolesMenus" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RolesMenus].[RoleId] AS [RoleId], 
+    [RolesMenus].[MenuId] AS [MenuId], 
+    [RolesMenus].[Status] AS [Status]
+    FROM [dbo].[RolesMenus] AS [RolesMenus]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Fk_ClientsBranches_Clients_ClientId" Association="Self.Fk_ClientsBranches_Clients_ClientId">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientsBranches" EntitySet="ClientsBranches" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ClientsContacts_ClientsBranches_BranchId" Association="Self.Fk_ClientsContacts_ClientsBranches_BranchId">
+            <End Role="ClientsBranches" EntitySet="ClientsBranches" />
+            <End Role="ClientsContacts" EntitySet="ClientsContacts" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_RolesMenus_MenuId" Association="Self.Fk_RolesMenus_MenuId">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="RolesMenus" EntitySet="RolesMenus" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_RolesMenus_Users" Association="Self.Fk_RolesMenus_Users">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolesMenus" EntitySet="RolesMenus" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Users_RoleId" Association="Self.Fk_Users_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_UserValidationRequests_Users" Association="Self.Fk_UserValidationRequests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserValidationRequests" EntitySet="UserValidationRequests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MBNSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MenuName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RolesMenus" Relationship="Self.Fk_RolesMenus_MenuId" FromRole="Menus" ToRole="RolesMenus" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RolesMenus" Relationship="Self.Fk_RolesMenus_Users" FromRole="Roles" ToRole="RolesMenus" />
+          <NavigationProperty Name="Users" Relationship="Self.Fk_Users_RoleId" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Designation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPwdChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChangePwd" Type="Boolean" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="HRId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.Fk_Users_RoleId" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="UserValidationRequests" Relationship="Self.Fk_UserValidationRequests_Users" FromRole="Users" ToRole="UserValidationRequests" />
+        </EntityType>
+        <EntityType Name="UserValidationRequest">
+          <Key>
+            <PropertyRef Name="Recid" />
+          </Key>
+          <Property Name="Recid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValidationType" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ValidationExpiryDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ValidationKey" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValidationPin" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValidationStatus" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.Fk_UserValidationRequests_Users" FromRole="UserValidationRequests" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="RolesMenu">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="MenuId" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="MenuId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="Self.Fk_RolesMenus_MenuId" FromRole="RolesMenus" ToRole="Menus" />
+          <NavigationProperty Name="Role" Relationship="Self.Fk_RolesMenus_Users" FromRole="RolesMenus" ToRole="Roles" />
+        </EntityType>
+        <Association Name="Fk_RolesMenus_MenuId">
+          <End Role="Menus" Type="Self.Menu" Multiplicity="1" />
+          <End Role="RolesMenus" Type="Self.RolesMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="RolesMenus">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_RolesMenus_Users">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolesMenus" Type="Self.RolesMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolesMenus">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Users_RoleId">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_UserValidationRequests_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserValidationRequests" Type="Self.UserValidationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserValidationRequests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MBNSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserValidationRequests" EntityType="Self.UserValidationRequest" />
+          <EntitySet Name="RolesMenus" EntityType="Self.RolesMenu" />
+          <AssociationSet Name="Fk_RolesMenus_MenuId" Association="Self.Fk_RolesMenus_MenuId">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="RolesMenus" EntitySet="RolesMenus" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_RolesMenus_Users" Association="Self.Fk_RolesMenus_Users">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolesMenus" EntitySet="RolesMenus" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Users_RoleId" Association="Self.Fk_Users_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_UserValidationRequests_Users" Association="Self.Fk_UserValidationRequests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserValidationRequests" EntitySet="UserValidationRequests" />
+          </AssociationSet>
+          <EntitySet Name="Clients" EntityType="MBNSystemModel.Client" />
+          <EntitySet Name="ClientsBranches" EntityType="MBNSystemModel.ClientsBranch" />
+          <EntitySet Name="ClientsContacts" EntityType="MBNSystemModel.ClientsContact" />
+          <AssociationSet Name="Fk_ClientsBranches_Clients_ClientId" Association="MBNSystemModel.Fk_ClientsBranches_Clients_ClientId">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientsBranch" EntitySet="ClientsBranches" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ClientsContacts_ClientsBranches_BranchId" Association="MBNSystemModel.Fk_ClientsContacts_ClientsBranches_BranchId">
+            <End Role="ClientsBranch" EntitySet="ClientsBranches" />
+            <End Role="ClientsContact" EntitySet="ClientsContacts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="PANNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedStaffHrid" Type="Int32" />
+          <Property Name="SBId" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SBVPN" Type="Boolean" />
+          <Property Name="SMSId" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="UsesATM" Type="Boolean" />
+          <NavigationProperty Name="ClientsBranch" Relationship="MBNSystemModel.Fk_ClientsBranches_Clients_ClientId" FromRole="Client" ToRole="ClientsBranch" />
+        </EntityType>
+        <EntityType Name="ClientsBranch">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsHO" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="BranchNo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="MBNSystemModel.Fk_ClientsBranches_Clients_ClientId" FromRole="ClientsBranch" ToRole="Client" />
+          <NavigationProperty Name="ClientsContacts" Relationship="MBNSystemModel.Fk_ClientsContacts_ClientsBranches_BranchId" FromRole="ClientsBranch" ToRole="ClientsContact" />
+        </EntityType>
+        <EntityType Name="ClientsContact">
+          <Key>
+            <PropertyRef Name="ClientContactId" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="ClientContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeExt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClientsBranch" Relationship="MBNSystemModel.Fk_ClientsContacts_ClientsBranches_BranchId" FromRole="ClientsContact" ToRole="ClientsBranch" />
+        </EntityType>
+        <Association Name="Fk_ClientsBranches_Clients_ClientId">
+          <End Type="MBNSystemModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="MBNSystemModel.ClientsBranch" Role="ClientsBranch" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientsBranch">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ClientsContacts_ClientsBranches_BranchId">
+          <End Type="MBNSystemModel.ClientsBranch" Role="ClientsBranch" Multiplicity="1" />
+          <End Type="MBNSystemModel.ClientsContact" Role="ClientsContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientsBranch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="ClientsContact">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MBNSystemModelStoreContainer" CdmEntityContainer="MBNSystemEntities">
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="MBNSystemModel.Menu">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MBNSystemModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MBNSystemModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="LastPwdChangeDate" ColumnName="LastPwdChangeDate" />
+                <ScalarProperty Name="ChangePwd" ColumnName="ChangePwd" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="HRId" ColumnName="HRId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserValidationRequests">
+            <EntityTypeMapping TypeName="MBNSystemModel.UserValidationRequest">
+              <MappingFragment StoreEntitySet="UserValidationRequests">
+                <ScalarProperty Name="Recid" ColumnName="Recid" />
+                <ScalarProperty Name="ValidationType" ColumnName="ValidationType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ValidationExpiryDate" ColumnName="ValidationExpiryDate" />
+                <ScalarProperty Name="ValidationKey" ColumnName="ValidationKey" />
+                <ScalarProperty Name="ValidationPin" ColumnName="ValidationPin" />
+                <ScalarProperty Name="ValidationStatus" ColumnName="ValidationStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolesMenus">
+            <EntityTypeMapping TypeName="MBNSystemModel.RolesMenu">
+              <MappingFragment StoreEntitySet="RolesMenus">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="MBNSystemModel.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="UsesATM" ColumnName="UsesATM" />
+                <ScalarProperty Name="SMSId" ColumnName="SMSId" />
+                <ScalarProperty Name="SBVPN" ColumnName="SBVPN" />
+                <ScalarProperty Name="SBId" ColumnName="SBId" />
+                <ScalarProperty Name="AssignedStaffHrid" ColumnName="AssignedStaffHrid" />
+                <ScalarProperty Name="PANNo" ColumnName="PANNo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientsBranches">
+            <EntityTypeMapping TypeName="MBNSystemModel.ClientsBranch">
+              <MappingFragment StoreEntitySet="ClientsBranches">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BranchNo" ColumnName="BranchNo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsHO" ColumnName="IsHO" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientsContacts">
+            <EntityTypeMapping TypeName="MBNSystemModel.ClientsContact">
+              <MappingFragment StoreEntitySet="ClientsContacts">
+                <ScalarProperty Name="OfficeExt" ColumnName="OfficeExt" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="ClientContactId" ColumnName="ClientContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

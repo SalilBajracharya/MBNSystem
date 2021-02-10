@@ -1,0 +1,44 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Supervisor"))
+    {
+        <div id="admin-menu">
+            <div class="user-panel text-center text-uppercase">
+                <div class="info">
+                    <h3 class="text-gray mt-2">Admin Menu</h3>
+                </div>
+            </div>
+
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>Simple Link</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+}
+<!-- /End Admin Menu-->
+<!-- Other Menu -->
+<div id="utilities-menu">
+    <div class="user-panel text-center text-uppercase">
+        <div class="info">
+            <h3 class="text-gray mt-2">Utilities</h3>
+        </div>
+    </div>
+
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user mr-3"></i>Profile
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- /End Other Menu-->

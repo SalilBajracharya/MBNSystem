@@ -1,0 +1,39 @@
+﻿@model MBNSystem.Models.User
+
+<div class="form col-md-4" id="new-user-form" align="center" style="border: 1px solid #ccc; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 30px;">
+
+    <h3 class="text-bold pb-3 pt-3">Edit User Details</h3>
+    @using (Html.BeginForm("EditUser", "Accounts", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control text-center", @placeholder = "Enter Name" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="Username">Username</label>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control text-center", @placeholder = "Enter Username" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control text-center", @placeholder = "Enter Email" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="Mobile">Mobile Number</label>
+                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control text-center", @placeholder = "Enter mobile number" } })
+            </div>
+            <div class="form-group">
+                <label for="Designation">Designation</label>
+                @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control text-center", @placeholder = "Enter Designation" } })
+            </div>
+            <div class="form-group">
+                <input id="edituser" type="submit" value="Save Changes" class="btn btn-dark" />
+            </div>
+        </div>
+    }
+</div>
+
+@Html.ActionLink("<<Back To User", "Index", "User")

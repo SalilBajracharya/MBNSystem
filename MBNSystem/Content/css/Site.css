@@ -1,0 +1,100 @@
+﻿body {
+    font-family: 'Comfortaa';
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+input {
+    border-radius: 2rem !important;
+}
+
+ul, li {
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content .container{
+    max-width: 100%;
+}
+
+.wrapper{
+    height: 100vh;
+}
+
+.main-footer{
+    position: absolute;
+    bottom: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/*Sidebar CSS changes*/
+.dropdown-btn{
+    padding: 6px 8px 6px 16px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    font-size: 20px;
+    text-transform: uppercase;
+    } 
+
+.dropdown-btn:hover{
+    color: white;
+    background-color: coral;
+    border-radius: 0.5rem;
+  }
+
+.dropdown-container{
+    display: none;
+}
+
+
+/*Sidebar*/
+.main-sidebar{
+    overflow: hidden;
+}
+
+.sidebar{
+   position: relative;
+   height: 100vh;
+}
+
+.userprofile-wrapper {
+    height: 100%;
+}
+
+    .userprofile-wrapper .user-info {
+        width: 60%;
+    }
+
+
+
+/*
+    #fixed-menu .text-center .list-group .list-group-item {
+        background-color: #343a40;
+        border: none;
+    }
+
+    #fixed-menu .text-center .list-group .list-group-item a:hover {
+        color: coral;
+    }*/
+
+ul.usericon-dropdown{
+    position : relative;
+    display : none;
+}

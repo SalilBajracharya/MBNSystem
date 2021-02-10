@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@if (@Session["userid"] != null)
+{
+    if (Session["loggedin"].ToString() == "loggedin")
+    {
+        <btn id="notification-btn" class="btn btn-success" style="border-radius: 30px; padding: 15px; opacity:0;">You have successfully logged in.</btn>
+    }
+    Session["loggedin"] = "alreadyloggedin";
+
+}
+
+@*@if (Session["loggedin"].ToString() == "alreadyloggedin" && (bool)Session["adduser"] == true)
+{
+    <btn id="notification-btn" class="btn btn-success" style="border-radius: 30px; padding: 15px; opacity:0;">New user successfully added.</btn>
+}*@
+
+
+

@@ -1,0 +1,54 @@
+﻿@model MBNSystem.Models.User
+
+<div class="form col-md-4" id="new-user-form" align="center" style="border: 1px solid #ccc; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 30px;">
+
+    <h3 class="text-bold pb-3 pt-3">Add New User</h3>
+    @using (Html.BeginForm("AddUserAuthorize", "Accounts", FormMethod.Post))
+    {
+        //Name
+        <div class="form-group">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Name" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+
+        //Username
+        <div class="form-group">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Username" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+
+        //Email
+        <div class="form-group">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        //Mobile Number
+        <div class="form-group">
+            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter mobile number" } })
+        </div>
+
+        //Role Id
+        <div class="form-group">
+            @Html.EditorFor(model => model.RoleId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Role" } })
+        </div>
+
+        @*//Password:Auto Generate Needed
+            <div class="form-group">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>*@
+
+        //Designation
+        <div class="form-group">
+            @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Designation" } })
+        </div>
+
+        //Submit
+        <div class="form-group">
+            <input id="adduser" type="submit" value="AddUser" class="btn btn-dark" />
+        </div>
+    }
+</div>
+
+@Html.ActionLink("<<Back To User","Index","User")
