@@ -2,65 +2,66 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div id="user-list" class="container border">
-    <div id="usertable-header">
-        <h2 class="p-3 font-weight-bold" align="center">User Lists</h2>
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (User.IsInRole("Supervisor"))
+<div id="users-content">
+    <div id="user-list" class="container border">
+        <div id="usertable-header">
+            <h2 class="p-3 font-weight-bold" align="center">User Lists</h2>
+            @if (User.Identity.IsAuthenticated)
             {
-                <input type="button" class="btn btn-primary float-right m-3" value="Add New User" onclick="window.location.href='@Url.Action("AddUser", "Accounts")';" />
-            }
-        }
-    </div>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile No</th>
-                <th>Designation</th>
-                @if (User.Identity.IsAuthenticated)
+                if (User.IsInRole("Supervisor"))
                 {
-                    if (User.IsInRole("Supervisor"))
-                    {
-                        <th></th>
-                        <th></th>
-                    }
+                    <input type="button" class="btn btn-primary float-right m-3" value="Add New User" onclick="window.location.href='@Url.Action("AddUser", "Accounts")';" />
                 }
-            </tr>
-        </thead>
+            }
+        </div>
 
-        <tbody>
-
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Email</td>
-                <td>@item.MobileNo</td>
-                <td>@item.Designation</td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    if (User.IsInRole("Supervisor"))
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Designation</th>
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <td>
-                            @using (Html.BeginForm("DeleteUser", "Accounts", new { id = item.UserId }, FormMethod.Post))
+                        if (User.IsInRole("Supervisor"))
+                        {
+                            <th></th>
+                            <th></th>
+                        }
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.MobileNo</td>
+                        <td>@item.Designation</td>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Supervisor"))
                             {
-                                <input class="btn btn-danger" type="submit" value="Delete" />
+                                <td>
+                                    @using (Html.BeginForm("DeleteUser", "Accounts", new { id = item.UserId }, FormMethod.Post))
+                                    {
+                                        <input class="btn btn-danger" type="submit" value="Delete" />
+                                    }
+                                </td>
+                                <td>
+                                    <input class="btn btn-light" type="submit" value="Edit" onclick="window.location = '@Url.Action("EditUser", "Accounts", new { userid = item.UserId})'" />
+                                </td>
                             }
-                        </td>
-                        <td>
-                            <input class="btn btn-light" type="submit" value="Edit" onclick="window.location = '@Url.Action("EditUser", "Accounts", new { userid = item.UserId})'" />
-                        </td>
-                    }
+                        }
+
+                    </tr>
                 }
 
-            </tr>
-            }
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

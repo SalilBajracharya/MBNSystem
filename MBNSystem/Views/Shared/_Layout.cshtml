@@ -74,23 +74,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="@Url.Action("Main","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                Dashboard
-                            </a>
+                        <li id="dashboard" class="nav-item" url="/Home/Main">
+                            <a class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Clients
-                                    <i class="fa fa-angle-left right"></i>
+                                <p>Clients<i class="fa fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview ml-3">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("ClientsList","Clients")" class="nav-link">
+                                <li id="clientslist" class="nav-item" url="/Clients/ClientsList">
+                                    <a @*href="@Url.Action("ClientsList","Clients")"*@ class="nav-link">
                                         <i class="fa fa-chart-line nav-icon"></i>
                                         <p>Client List</p>
                                     </a>
@@ -120,11 +115,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("Index","User")" class="nav-link">
+                        <li class="nav-item" id="users" url="/User/Index">
+                            <a class="nav-link">
                                 <i class="nav-icon fas fa-user-alt"></i>
                                 <p>
-                                    MBNSys Users
+                                    Users
                                 </p>
                             </a>
                         </li>
@@ -132,11 +127,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @Html.Partial("~/Views/Shared/Menu/_MenuCollapse.cshtml")
 
                         @*<li id="fixed-menu" class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                Reset Password
-                            </a>
-                        </li>*@
+                                <a href="#" class="nav-link ">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    Reset Password
+                                </a>
+                            </li>*@
 
                     </ul>
 
@@ -213,6 +208,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Content/js/popup.js"></script>
     <script src="~/Content/js/menu-toggle.js"></script>
+    <script src="~/RedirectScripts/ClientsRedirect.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>

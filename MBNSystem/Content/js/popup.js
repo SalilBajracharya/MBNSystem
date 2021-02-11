@@ -1,14 +1,14 @@
 ﻿
 //Login successful Popup
-var UserSession = '@Session["userId"]';
+//var UserSession = '@Session["userId"]';
 
-if (UserSession != null) {
-    document.getElementById("notification-btn").style.opacity = 1;
+//if (UserSession != null) {
+//    document.getElementById("notification-btn").style.opacity = 1;
 
-    $("#notification-btn").click(function () {
-        document.getElementById("notification-btn").style.opacity = 0;
-    });
-}
+//    $("#notification-btn").click(function () {
+//        document.getElementById("notification-btn").style.opacity = 0;
+//    });
+//}
 
 //Adduser sucessful Popup
 
