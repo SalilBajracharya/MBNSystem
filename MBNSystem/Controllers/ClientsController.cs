@@ -18,9 +18,9 @@ namespace MBNSystem.Controllers
             return View(db.Clients.Where(x => x.Name.Contains(search) || search == null).ToList() );
         }
 
-        public ActionResult AddClients()
+        public ActionResult _AddClients()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -53,10 +53,10 @@ namespace MBNSystem.Controllers
             return RedirectToAction("ClientsList", "Clients");
         }
         
-        public ActionResult EditClient(int clientid)
+        public ActionResult _EditClient(int clientid)
         {
-            var client = db.Clients.Where(x => x.ClientId == clientid).FirstOrDefault();
-            return View(client);
+            var client = db.Clients.Where(x => x.ClientId == clientid).SingleOrDefault();
+            return PartialView(client);
         }
 
         [HttpPost]
@@ -70,11 +70,11 @@ namespace MBNSystem.Controllers
                     client.Name = obj.Name;
                     client.Status = obj.Status;
                     client.PANNo = obj.PANNo;
-                    client.AssignedStaffHrid = obj.AssignedStaffHrid;
-                    client.SBId = obj.SBId;
-                    client.SBVPN = obj.SBVPN;
-                    client.SMSId = obj.SMSId;
-                    client.UsesATM = obj.UsesATM;
+                    //client.AssignedStaffHrid = obj.AssignedStaffHrid;
+                    //client.SBId = obj.SBId;
+                    //client.SBVPN = obj.SBVPN;
+                    //client.SMSId = obj.SMSId;
+                    //client.UsesATM = obj.UsesATM;
                     db.Entry(client).State = EntityState.Modified;
                     db.SaveChanges();
                 }

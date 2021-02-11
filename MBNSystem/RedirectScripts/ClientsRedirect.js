@@ -40,7 +40,7 @@
                     marginRight: width + "px",
                     opacity: 0.0
                 }, 700, "swing", function () {
-                    $('body').find('.container').html($(data).find('#about-content').html());
+                    $('body').find('.container').html($(data).find('#clients-content').html());
                     $('body').find('.container').animate({
                         marginLeft: "0px",
                         marginRight: "0px",
@@ -50,6 +50,50 @@
             }
         })
     });
+
+    $('body').on('click', '#btn-addclients', function () {
+        $.ajax({
+            url: "/Clients/_AddClients",
+            success: function (data) {
+                $('.modal-content').html('');
+                $('.modal-content').append(data);
+
+                var form = $('.modal-content-lg').find('#form');
+
+                $(form).removeData("validator");
+                $(form).removeData("unobtrusivevalidation");
+                $.validator.unobtrusive.parse(form);
+
+                $('.myModal').modal('show');
+            }
+        })
+    })
+
+    $('body').on('click', '#btn-editclients', function () {
+        var Id = $(this).closest('tr').attr('clientid');
+        $.ajax({
+            method: "GET",
+            url: "/Clients/_EditClient",
+            data: { Id : Id },
+            success: function (data) {
+                var container = $('body').find('.container');
+                var width = container.width();
+                container.animate({ 
+                    marginLeft: "-" + width + "px",
+                    marginRight: width + "px",
+                    opacity: 0.0
+                }, 700, "swing", function () {
+                        container.css('height', 0);
+                        container.next().html(data);
+                        container.next().animate({
+                            marginLeft: "0px",
+                            marginRight: "0px",
+                            opacity: 1.0
+                        }, 700, "swing")
+                })
+            }
+        })
+    })
 
     //------------User redirection---------------//
     $('.sidebar').on('click', '#users', function () {

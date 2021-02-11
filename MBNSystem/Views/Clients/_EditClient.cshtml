@@ -1,0 +1,47 @@
+﻿@model MBNSystem.Models.Client
+
+<div id="editclients">
+    <div class="modal-header">
+        <h3>Edit Clients</h3>
+    </div>
+
+    @using (Ajax.BeginForm("EditClients", "Clients", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "EditClientsSuccess",
+        InsertionMode = InsertionMode.Replace
+    }, new { @id = "form" }))
+    {
+        <div id="modal-body" class="modal-body edit-clients-modal-body">
+            @Html.HiddenFor(model => model.ClientId)
+            <h4>Edit Information</h4>
+            <hr />
+            <div class="form-group">
+                <div class="form-group-col">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                </div>
+                @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control txt-clientsname", @placeholder = "Client Name" } })
+            </div>
+            <div class="col-md-4">
+                <div class="form-group-col">
+                    @Html.LabelFor(model => model.PANNo, htmlAttributes: new { @class = "control-label" })
+                </div>
+                @Html.EditorFor(model => model.PANNo, new { htmlAttributes = new { @class = "form-control txt-panno", @placeholder = "Pan no" } })
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group-col">
+                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
+                </div>
+                @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
+                    {
+                    new SelectListItem {Text = "Active", Value = "1"},
+                    new SelectListItem {Text = "Discontinued", Value = "9" } }, new
+                    {
+                            @class = "form-control tri-state list-box"
+                    })
+            </div>
+        </div>
+    }
+</div>
+

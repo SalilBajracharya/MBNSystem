@@ -1,13 +1,13 @@
 ﻿body {
-    font-family: 'Comfortaa';
+    font-family: 'Rubik';
     margin: 0;
     padding: 0;
     line-height: 1;
 }
-
+/*
 input {
     border-radius: 2rem !important;
-}
+}*/
 
 ul, li {
     text-decoration: none;
@@ -97,4 +97,11 @@ input[type=number] {
 ul.usericon-dropdown{
     position : relative;
     display : none;
+}
+
+/*--------------Clients------------------*/
+
+#client-list, #user-list {
+    width: 80%;
+    margin: auto !important;
 }

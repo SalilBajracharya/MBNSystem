@@ -2119,8 +2119,8 @@
     <Content Include="Views\Shared\Menu\_MenuCollapse.cshtml" />
     <Content Include="Views\Shared\Menu\_FixedMenu.cshtml" />
     <Content Include="Views\Clients\ClientsList.cshtml" />
-    <Content Include="Views\Clients\AddClients.cshtml" />
-    <Content Include="Views\Clients\EditClient.cshtml" />
+    <Content Include="Views\Clients\_AddClients.cshtml" />
+    <Content Include="Views\Clients\_EditClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

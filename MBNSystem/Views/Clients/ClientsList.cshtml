@@ -2,13 +2,13 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div id="about-content">
+<div id="clients-content">
     <div id="client-list" class="container border">
         <div id="clienttable-header">
             <h2 class="p-3 font-weight-bold" align="center">Clients Lists</h2>
         </div>
-        <div class="col-lg-12 p-3 mb-3">
-            <div class="col-lg-10 float-left">
+        <div class="col-lg-12 p-3 mb-3 d-flex justify-content-between">
+            <div class="col-lg-10">
                 @using (Html.BeginForm("ClientsList", "Clients", FormMethod.Get))
                 {
                     @Html.TextBox("search", "", new { @class = "form-control col-lg-11 float-left", @placeholder = "Search...." })
@@ -16,18 +16,14 @@
                 }
             </div>
             <div class="col-lg-1 float-left">
-                <input type="button" class="btn btn-default float-left" value="Reset" onclick="window.location.href = '@Url.Action("ClientsList","Clients")';" />
-            </div>
-
-            <div class="col-lg-1 float-left">
-                <input id="btn-addclients" type="button" class="btn btn-primary float-right" value="Add New Client" onclick="window.location.href='@Url.Action("AddClients", "Clients")';" />
+                <input id="btn-addclients" type="button" class="btn btn-primary float-right" value="Add New Client" @*onclick="window.location.href='@Url.Action("AddClients", "Clients")';"*@ />
             </div>
         </div>
 
 
 
         <table class="table table-striped" style="border-top: none;">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
                     <th>Client Name</th>
                     <th>Status</th>
@@ -46,7 +42,7 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr class="client-list" onclick="contactPerson()" id="@item.ClientId">
+                    <tr class="client-list" clientid="@item.ClientId">
                         <td>@item.Name</td>
                         <td>@item.Status</td>
                         <td>@item.PANNo</td>
@@ -62,7 +58,7 @@
                             }
                         </td>
                         <td>
-                            <input class="btn btn-light" type="submit" value="Edit" onclick="window.location = '@Url.Action("EditClient", "Clients", new { clientid = item.ClientId})'" />
+                            <input id ="btn-editclients" class="btn btn-light" type="submit" value="Edit" @*onclick="window.location = '@Url.Action("EditClient", "Clients", new { clientid = item.ClientId})'"*@/>
                         </td>
                     </tr>
                 }

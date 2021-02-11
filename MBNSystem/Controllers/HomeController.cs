@@ -8,6 +8,7 @@ namespace MBNSystem.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("Main")]
         public ActionResult Main()
         {
             return View();
