@@ -1,70 +1,22 @@
-﻿@model List<MBNSystem.Models.Client>
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@*@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 <div id="clients-content">
     <div id="client-list" class="container border">
         <div id="clienttable-header">
             <h2 class="p-3 font-weight-bold" align="center">Clients Lists</h2>
         </div>
         <div class="col-lg-12 p-3 mb-3 d-flex justify-content-between">
-            <div class="col-lg-10">
-                @using (Html.BeginForm("ClientsList", "Clients", FormMethod.Get))
-                {
-                    @Html.TextBox("search", "", new { @class = "form-control col-lg-11 float-left", @placeholder = "Search...." })
-                    <input type="submit" class="btn btn-default col-lg-1 float-left" value="Search" />
-                }
+            <div class="col-lg-10 search-container" url="/Clients/ClientsList/">
+                <input type="text" class="col-md-8 form-control txt-client-search float-left mr-3" placeholder="Search...">
+                <button class="btn btn-default btn-client-search">Search</button>
             </div>
             <div class="col-lg-1 float-left">
-                <input id="btn-addclients" type="button" class="btn btn-primary float-right" value="Add New Client" @*onclick="window.location.href='@Url.Action("AddClients", "Clients")';"*@ />
+                <input id="btn-addclients" type="button" class="btn btn-primary float-right" value="Add New Client" />
             </div>
         </div>
 
-
-
-        <table class="table table-striped" style="border-top: none;">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Client Name</th>
-                    <th>Status</th>
-                    <th>PAN No.</th>
-                    <th>Assigned Staff</th>
-                    <th>SBId</th>
-                    <th>SBVPN</th>
-                    <th>SMSId</th>
-                    <th>UsesAtm</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach (var item in Model)
-                {
-                    <tr class="client-list" clientid="@item.ClientId">
-                        <td>@item.Name</td>
-                        <td>@item.Status</td>
-                        <td>@item.PANNo</td>
-                        <td>@item.AssignedStaffHrid</td>
-                        <td>@item.SBId</td>
-                        <td>@item.SBVPN</td>
-                        <td>@item.SMSId</td>
-                        <td>@item.UsesATM</td>
-                        <td>
-                            @using (Html.BeginForm("DeleteClient", "Clients", new { id = item.ClientId }, FormMethod.Post))
-                            {
-                                <input class="btn btn-danger" type="submit" value="Delete" />
-                            }
-                        </td>
-                        <td>
-                            <input id ="btn-editclients" class="btn btn-light" type="submit" value="Edit" @*onclick="window.location = '@Url.Action("EditClient", "Clients", new { clientid = item.ClientId})'"*@/>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
+        @{Html.RenderAction("_ClientsList", "Clients");}
     </div>
 
 </div>

@@ -1,5 +1,11 @@
-﻿body {
-    font-family: 'Rubik';
+﻿@font-face {
+    font-family: Rubik-Regular;
+    src: url(../font/Rubik-Regular.woff);
+    src: url(../font/Rubik-Regular.woff2);
+}
+
+body {
+    font-family: Rubik-Regular;
     margin: 0;
     padding: 0;
     line-height: 1;

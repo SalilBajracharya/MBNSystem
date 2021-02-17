@@ -1,0 +1,48 @@
+﻿@model List<MBNSystem.Models.Client>
+
+<div id="client-list-table">
+
+    <table class="table table-striped" style="border-top: none;">
+        <thead class="thead-dark">
+            <tr>
+                <th>Client Name</th>
+                <th>Status</th>
+                <th>PAN No.</th>
+                <th>Assigned Staff</th>
+                <th>SBId</th>
+                <th>SBVPN</th>
+                <th>SMSId</th>
+                <th>UsesAtm</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr class="client-list" clientid="@item.ClientId">
+                    <td>@item.Name</td>
+                    <td>@item.Status</td>
+                    <td>@item.PANNo</td>
+                    <td>@item.AssignedStaffHrid</td>
+                    <td>@item.SBId</td>
+                    <td>@item.SBVPN</td>
+                    <td>@item.SMSId</td>
+                    <td>@item.UsesATM</td>
+                    <td>
+                        @using (Html.BeginForm("_DeleteClient", "Clients", new { id = item.ClientId }, FormMethod.Post))
+                        {
+                            <input class="btn btn-danger" type="submit" value="Delete" />
+                        }
+                    </td>
+                    <td>
+                        <input id="btn-editclients" class="btn btn-light" type="submit" value="Edit" @*onclick="window.location = '@Url.Action("EditClient", "Clients", new { clientid = item.ClientId})'"*@ />
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

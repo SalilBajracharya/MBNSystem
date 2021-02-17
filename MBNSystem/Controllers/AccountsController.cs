@@ -22,9 +22,9 @@ namespace MBNSystem.Controllers
     {
         MBNSystemEntities db = new MBNSystemEntities();
         //Add New User if Super User Only
-        public ActionResult AddUser()
+        public ActionResult _AddUser()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpPost]

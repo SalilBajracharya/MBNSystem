@@ -20,8 +20,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
     <link href="~/adminlte/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    @*<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>*@
 
     @*Check Session*@
     @if (Session["userID"] == null)
@@ -205,11 +205,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/adminlte/js")
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/ComponentScripts/jquery.validate.min.js"></script>
+    <script src="~/ComponentScripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Content/js/popup.js"></script>
     <script src="~/Content/js/menu-toggle.js"></script>
-    <script src="~/RedirectScripts/ClientsRedirect.js"></script>
+    <script src="~/Scripts/Redirect.js"></script>
+    <script src="~/Scripts/Search.js"></script>
     @RenderSection("scripts", required: false)
 
     <div class="modal fade myModal" role="dialog">

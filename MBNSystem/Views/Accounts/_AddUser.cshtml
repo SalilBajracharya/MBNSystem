@@ -1,0 +1,66 @@
+﻿
+@model MBNSystem.Models.User
+
+<div id="addusers" style="padding: 20px">
+    <div class="form-horizontal">
+        <div class="modal-header">
+            <h4>Add New User</h4>
+            <hr />
+        </div>
+        @using (Ajax.BeginForm("AddUserAuthorize", "Accounts", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnSuccess = "AddUserSucess",
+            InsertionMode = InsertionMode.Replace
+        }, new { @id = "form" }))
+        {
+            <div id="add-user-modal-body" class="modal-body add-user-modal-body">
+                <div class="form-group">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group-col">
+                            @Html.LabelFor(x => x.Name, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control txt-name", @placeholder = "Enter Name" } })
+                        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group-col">
+                            @Html.LabelFor(x => x.UserName, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.EditorFor(x => x.UserName, new { htmlAttributes = new { @class = "form-control txt-username", @placeholder = "Enter Username" } })
+                        @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group-col">
+                            @Html.LabelFor(x => x.Email, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control txt-email", @placeholder = "Enter email address" } })
+                        @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group-col">
+                            @Html.LabelFor(x => x.MobileNo, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.EditorFor(x => x.MobileNo, new { htmlAttributes = new { @class = "form-control txt-mobile", @placeholder = "Enter Mobile number" } })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group-col">
+                            @Html.LabelFor(x => x.RoleId, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.EditorFor(x => x.RoleId, new { htmlAttributes = new { @class = "form-control txt-roleid", @placeholder = "Enter Role Id" } })
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group-col">
+                            @Html.LabelFor(x => x.Designation, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        @Html.EditorFor(x => x.Designation, new { htmlAttributes = new { @class = "form-control txt-designation", @placeholder = "Enter Designation" } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer col-md-12">
+                <input id="formbtn-addusers" type="submit" value="Add User" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>

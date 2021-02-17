@@ -12,10 +12,22 @@ namespace MBNSystem.Controllers
     {
         MBNSystemEntities db = new MBNSystemEntities();
         // GET: Clients
-        public ActionResult ClientsList(string search)
+        public ActionResult ClientsList()
         {
-            List<Client> clients = db.Clients.ToList();
-            return View(db.Clients.Where(x => x.Name.Contains(search) || search == null).ToList() );
+            return View();
+        }
+
+        public ActionResult _ClientsList(string search) {
+            List<Client> clients = new List<Client>();
+            if (search != null && search != "")
+            {
+                clients = db.Clients.Where(x => x.Name.ToLower().StartsWith(search.ToLower())).ToList();
+            }
+            else
+            {
+                clients = db.Clients.ToList();
+            }
+            return PartialView(clients);
         }
 
         public ActionResult _AddClients()
@@ -60,7 +72,7 @@ namespace MBNSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditClient(Client obj)
+        public ActionResult _EditClient(Client obj)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +99,7 @@ namespace MBNSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteClient(int id)
+        public ActionResult _DeleteClient(int id)
         {
             db.Clients.Remove(db.Clients.Find(id));
             db.SaveChanges();
