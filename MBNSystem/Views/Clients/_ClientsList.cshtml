@@ -1,18 +1,20 @@
-﻿@model List<MBNSystem.Models.Client>
+﻿@model MBNSystem.MultiModels.MultiTableView
+@{ 
+    var i = 1;
+}
 
 <div id="client-list-table">
-
-    <table class="table table-striped" style="border-top: none;">
+    <table id="client-table" class="table table table-hover" style="border-top: none; border-collapse: collapse">
         <thead class="thead-dark">
             <tr>
                 <th>Client Name</th>
                 <th>Status</th>
                 <th>PAN No.</th>
-                <th>Assigned Staff</th>
+                @*<th>Assigned Staff</th>
                 <th>SBId</th>
                 <th>SBVPN</th>
                 <th>SMSId</th>
-                <th>UsesAtm</th>
+                <th>UsesAtm</th>*@
                 <th></th>
                 <th></th>
             </tr>
@@ -20,25 +22,59 @@
 
         <tbody>
 
-            @foreach (var item in Model)
+            @foreach (var clients in Model.Client)
             {
-                <tr class="client-list" clientid="@item.ClientId">
-                    <td>@item.Name</td>
-                    <td>@item.Status</td>
-                    <td>@item.PANNo</td>
-                    <td>@item.AssignedStaffHrid</td>
-                    <td>@item.SBId</td>
-                    <td>@item.SBVPN</td>
-                    <td>@item.SMSId</td>
-                    <td>@item.UsesATM</td>
+                var expand = "expand";
+                var expandvalue = expand + i.ToString();
+                i = i + 1;
+
+                <tr class="accordian-toggle client-list" data-toggle="collapse" data-target="#@expandvalue" clientid="@clients.ClientId">
+                    <td class="client-name"><p class="float-left" @*url="Clients/_ClientInformation"*@>@clients.Name</p></td>
+                    <td>@clients.Status</td>
+                    <td>@clients.PANNo</td>
+                    @*<td>@clients.AssignedStaffHrid</td>
+                    <td>@clients.SBId</td>
+                    <td>@clients.SBVPN</td>
+                    <td>@clients.SMSId</td>
+                    <td>@clients.UsesATM</td>*@
                     <td>
-                        @using (Html.BeginForm("_DeleteClient", "Clients", new { id = item.ClientId }, FormMethod.Post))
+                        @using (Html.BeginForm("_DeleteClient", "Clients", new { id = clients.ClientId }, FormMethod.Post))
                         {
-                            <input class="btn btn-danger" type="submit" value="Delete" />
+                            <input class="btn btn-sm btn-danger btn-client-delete" type="submit" value="Delete" />
                         }
                     </td>
                     <td>
-                        <input id="btn-editclients" class="btn btn-light" type="submit" value="Edit" @*onclick="window.location = '@Url.Action("EditClient", "Clients", new { clientid = item.ClientId})'"*@ />
+                        <input id="btn-editclients" class="btn btn-sm btn-light btn-client-edit" type="submit" value="Edit" /> 
+                    </td>
+                </tr>
+                <tr class="hidden-tr-row">
+                    <td class="hidden-td-row" colspan="5">
+                        <div class="accordion-body collapse" id="@expandvalue">
+                            <table id="branch-list-table" class="table" style="border-collapse: collapse">
+                                @*<thead>
+                                    <tr>
+                                        <th>Br</th>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>*@
+                                <tbody>
+                                    @foreach (var branch in Model.ClientBranch.Where(x => x.ClientId == clients.ClientId)) { 
+                                    <tr branchid ="@branch.BranchId">
+                                        <td>@branch.BranchNo</td>
+                                        <td class="branch-name"><p class="float-left">@branch.Name</p></td>
+                                        <td>@branch.Address</td>
+                                        <td>@branch.PhoneNo</td>
+                                        <td>@branch.EmailId</td>
+                                        <td><btn id="btn-contactperson" class="btn btn-sm btn-danger">Contact Person</btn></td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </td>
                 </tr>
             }

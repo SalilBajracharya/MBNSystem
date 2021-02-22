@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MBNSystem.Models.ClientsContact>
+
+<div id="contact-information" style="padding: 20px">
+    <div class="form-horizontal col-ml-9">
+        <div class="modal-header">
+            <h4>Contact Person</h4>
+            <hr />
+        </div>
+
+        <div id="modal-body" class="modal-body add-client-modal-body">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li>Name : @item.Name</li>
+                            <li>Mobile No : @item.MobileNo</li>
+                            <li>Email : @item.EmailId</li>
+                            <li>Office Ext. No : @item.OfficeExt</li>
+                            <hr />
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

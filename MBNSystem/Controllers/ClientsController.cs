@@ -5,29 +5,44 @@ using System.Web;
 using System.Web.Mvc;
 using MBNSystem.Models;
 using System.Data.Entity;
+using MBNSystem.MultiModels;
 
 namespace MBNSystem.Controllers
 {
     public class ClientsController : Controller
     {
-        MBNSystemEntities db = new MBNSystemEntities();
+        private readonly MBNSystemEntities db = new MBNSystemEntities();
         // GET: Clients
         public ActionResult ClientsList()
         {
             return View();
         }
 
-        public ActionResult _ClientsList(string search) {
-            List<Client> clients = new List<Client>();
+        public ActionResult _ClientsList(string search)
+        {
+            //List<Client> clients = new List<Client>();
+            var table = new MultiTableView
+            {
+                Client = db.Clients.ToList(),
+                ClientBranch = db.ClientsBranches.ToList(),
+                ClientContact = db.ClientsContacts.ToList()
+            };
+
             if (search != null && search != "")
             {
-                clients = db.Clients.Where(x => x.Name.ToLower().StartsWith(search.ToLower())).ToList();
+                table.Client = db.Clients.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList();
             }
             else
             {
-                clients = db.Clients.ToList();
+                table.Client = db.Clients.ToList();
             }
-            return PartialView(clients);
+            return PartialView(table);
+        }
+
+        public ActionResult _ClientsInfo(int clientid)
+        {
+
+            return PartialView();
         }
 
         public ActionResult _AddClients()
@@ -64,7 +79,7 @@ namespace MBNSystem.Controllers
             }
             return RedirectToAction("ClientsList", "Clients");
         }
-        
+
         public ActionResult _EditClient(int clientid)
         {
             var client = db.Clients.Where(x => x.ClientId == clientid).SingleOrDefault();
@@ -90,7 +105,7 @@ namespace MBNSystem.Controllers
                     db.Entry(client).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }
@@ -105,5 +120,12 @@ namespace MBNSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("ClientsList", "Clients");
         }
-    }    
+
+        public ActionResult ClientInformation(int clientid) {
+            var client = db.Clients.Where(x => x.ClientId == clientid).SingleOrDefault();
+            return PartialView(client);
+        }
+
+    }
+
 }

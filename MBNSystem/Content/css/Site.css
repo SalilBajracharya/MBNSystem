@@ -110,4 +110,55 @@ ul.usericon-dropdown{
 #client-list, #user-list {
     width: 80%;
     margin: auto !important;
+    font-size: 0.85rem !important;
+    padding: 10px;
+}
+
+#client-list-table {
+    border: 1px solid #d3d3d3;
+}
+
+
+/*-------------ClientList Table CSS----------------*/
+
+    #client-list td {
+    vertical-align: middle;
+    cursor : pointer;
+    }
+
+/*    #client-list table > tbody > tr > td,
+    #client-list table > tbody > tr > th {
+        border-top: none !important;
+    }
+*/
+#client-list-table #client-table .hidden-td-row{
+    padding: 0 !important;
+    background-color: #EFEFEF;
+}
+
+#client-list-table #client-table .client-name p:hover {
+    color : red;
+}
+
+#client-list-table #client-table #branch-list-table .branch-name:hover{
+    color : red;
+}
+
+#branch-list-table {
+    margin: 0;
+}
+
+#client-table{
+    margin:0;
+    padding: 10px;
+}
+
+.selected {
+    background-color: #DCDCDC;
+}
+
+
+/*------------Client Information---------------*/
+#client-information, #branch-information, #contact-information{
+    line-height : 30px;
 }

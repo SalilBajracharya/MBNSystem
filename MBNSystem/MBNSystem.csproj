@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\UserValidationRequest.cs">
       <DependentUpon>MBNSystemEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="MultiModels\MultiTableView.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2125,6 +2127,9 @@
     <Content Include="Views\Accounts\_AddUser.cshtml" />
     <Content Include="Views\Clients\_AddClients.cshtml" />
     <Content Include="Views\Clients\_ClientsList.cshtml" />
+    <Content Include="Views\Clients\ClientInformation.cshtml" />
+    <Content Include="Views\Branch\BranchInformation.cshtml" />
+    <Content Include="Views\Branch\BranchContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

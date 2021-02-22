@@ -1,0 +1,19 @@
+﻿@model MBNSystem.Models.ClientsBranch
+
+@{
+    ViewBag.Title = "BranchInformation";
+}
+
+<h2>BranchInformation</h2>
+
+<div id="branch-information">
+    <ul>
+        <li>Is Head Office : @Model.IsHO</li>
+        <li>Status : @Model.Status</li>
+        <li>Branch Name : @Model.Name</li>
+        <li>Address : @Model.Address </li>
+        <li>Phone No. : @Model.PhoneNo</li>
+        <li>Email : @Model.EmailId</li>
+        <li>Remarks : @Model.Remarks</li>
+    </ul>
+</div>

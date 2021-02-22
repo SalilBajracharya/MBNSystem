@@ -34,5 +34,6 @@ namespace MBNSystem.Models
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientsContact> ClientsContacts { get; set; }
+        public virtual Client Client1 { get; set; }
     }
 }

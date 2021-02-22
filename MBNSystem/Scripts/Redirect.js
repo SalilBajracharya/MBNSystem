@@ -90,6 +90,71 @@
         })
     })
 
+    $('body').on('click', '#client-table .client-name p', function () {
+        var clientid = $(this).closest('tr').attr('clientid');
+        var container = $('body').find('.container');
+        $.ajax({
+            method: "GET",
+            url: "/Clients/ClientInformation",
+            data: { clientid: clientid },
+            success: function (data) {
+                var width = container.width();
+                container.animate({
+                    marginLeft : '-' + width + 'px',
+                    marginRight: width + 'px',
+                    opacity: 0.0
+                }, 700, "swing", function () {
+                        container.html(data);
+                        container.animate({
+                            marginLeft: '0px',
+                            marginRight: '0px',
+                            opacity: 1.0
+                        }, 700, "swing")
+                })
+            }
+        })
+    });
+
+    $('body').on('click', '#branch-list-table .branch-name p', function () {
+        var container = $('body').find('.container');
+        var branchid = $(this).closest('tr').attr('branchid');
+        $.ajax({
+            method: "GET",
+            url: "/Branch/BranchInformation",
+            data: { branchid: branchid },
+            success: function (data) {
+                var width = container.width();
+                container.animate({
+                    marginLeft: '-' + width + 'px',
+                    marginRigh: width + 'px',
+                    opacity: 0.0
+                }, 700, "swing", function () {
+                    container.html(data);
+                    container.animate({
+                        marginLeft: '0px',
+                        marginRight: '0px',
+                        opacity: 1.0
+                    }, 700, "swing")
+                })
+            }
+        })
+    });
+
+/*---------------Contact Person Modal---------------*/
+    
+    $('body').on('click', '#btn-contactperson', function () {
+        var branchid = $(this).closest('tr').attr('branchid');
+        $.ajax({
+            url: "/Branch/BranchContact",
+            data: { branchid: branchid },
+            success: function (data) {
+                $('.modal-content').html('');
+                $('.modal-content').append(data);
+                $('.myModal').modal('show');
+            }
+        })
+    })
+
     //------------User redirection---------------//
     $('.sidebar').on('click', '#users', function () {
         var redirectTo = $(this).text();
@@ -160,5 +225,16 @@
         })
     })
 
+})
 
+/* ----------------------Table Toggle---------------------- */
+$('body').on('click', '#client-table tr.accordian-toggle', function () {
+    $('body').find('#client-table .collapse').collapse('hide');
+    $('body').find( '#client-table tr.selected').removeClass('selected');
+    $(this).addClass('selected');
+
+});
+
+$('body').on('click', '#client-table tr.selected', function () {
+    $(this).removeClass('selected');
 })

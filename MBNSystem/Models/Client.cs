@@ -11,14 +11,17 @@ namespace MBNSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Client
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Client()
+        {
+            this.ClientsBranches = new HashSet<ClientsBranch>();
+        }
+    
         public int ClientId { get; set; }
-        [Required(ErrorMessage ="Name cannot be blank")]
         public string Name { get; set; }
-        [Required(ErrorMessage ="Select a proper status")]
         public int Status { get; set; }
         public string PANNo { get; set; }
         public Nullable<int> AssignedStaffHrid { get; set; }
@@ -28,5 +31,7 @@ namespace MBNSystem.Models
         public Nullable<bool> UsesATM { get; set; }
     
         public virtual ClientsBranch ClientsBranch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientsBranch> ClientsBranches { get; set; }
     }
 }

@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="MBNSystemModel.ClientsContact" Width="1.5" PointX="9.875" PointY="7.25" />
         <AssociationConnector Association="MBNSystemModel.Fk_ClientsBranches_Clients_ClientId" />
         <AssociationConnector Association="MBNSystemModel.Fk_ClientsContacts_ClientsBranches_BranchId" />
+        <AssociationConnector Association="MBNSystemModel.FK_ClientsBranches_Clients" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
