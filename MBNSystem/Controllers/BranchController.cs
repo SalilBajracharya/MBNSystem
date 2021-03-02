@@ -17,9 +17,41 @@ namespace MBNSystem.Controllers
             return PartialView(branchinformation);
         }
 
-        public ActionResult BranchContact(int branchid) {
+        public ActionResult BranchContact(int branchid)
+        {
             var contactperson = db.ClientsContacts.Where(x => x.BranchId == branchid).ToList();
             return PartialView(contactperson);
         }
+
+        public ActionResult _EditBranch(int branchid)
+        {
+            var branch = db.ClientsBranches.Where(x => x.BranchId == branchid).FirstOrDefault();
+            return PartialView(branch);
+        }
+
+        [HttpPost]
+        public ActionResult _EditBranch(ClientsBranch obj)
+        {
+            try
+            {
+                var branch = db.ClientsBranches.Where(x => x.BranchId == obj.BranchId).FirstOrDefault();
+                branch.IsHO = obj.IsHO;
+                branch.Status = obj.Status;
+                branch.Name = obj.Name;
+                branch.Address = obj.Address;
+                branch.PhoneNo = obj.PhoneNo;
+                branch.EmailId = obj.EmailId;
+                branch.Remarks = obj.Remarks;
+                db.Entry(branch).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RedirectToAction("ClientsList", "Clients");
+        }
+
     }
 }

@@ -7,7 +7,7 @@
 <h2>BranchInformation</h2>
 
 <div id="branch-information">
-    <ul>
+    <ul branchid="@Model.BranchId">
         <li>Is Head Office : @Model.IsHO</li>
         <li>Status : @Model.Status</li>
         <li>Branch Name : @Model.Name</li>
@@ -15,5 +15,10 @@
         <li>Phone No. : @Model.PhoneNo</li>
         <li>Email : @Model.EmailId</li>
         <li>Remarks : @Model.Remarks</li>
+        <hr/>
+        <li>
+            <button class="btn btn-primary" id="btn-edit-branch">Edit</button>
+        </li>
     </ul>
+
 </div>

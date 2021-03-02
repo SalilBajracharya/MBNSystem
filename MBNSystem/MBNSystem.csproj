@@ -2130,6 +2130,8 @@
     <Content Include="Views\Clients\ClientInformation.cshtml" />
     <Content Include="Views\Branch\BranchInformation.cshtml" />
     <Content Include="Views\Branch\BranchContact.cshtml" />
+    <Content Include="Views\Branch\_EditBranch.cshtml" />
+    <Content Include="Views\Clients\_EditClientInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

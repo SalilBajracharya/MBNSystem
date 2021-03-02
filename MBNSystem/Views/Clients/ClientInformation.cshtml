@@ -4,8 +4,7 @@
 <hr />
 
 <div id="client-information">
-    <ul>
-        <li>Clientid : @Model.ClientId</li>
+    <ul clientid="@Model.ClientId">
         <li>Client Name : @Model.Name</li>
         <li>Status : @Model.Status</li>
         <li>Pan Number : @Model.PANNo</li>
@@ -14,5 +13,9 @@
         <li>Smart Banking VPN : @Model.SBVPN</li>
         <li>SMS Id : @Model.SMSId </li>
         <li>Uses ATM : @Model.UsesATM</li>
+        <li>
+            <button class="btn btn-primary" id="btn-edit-clientinfo">Edit</button>
+        </li>
     </ul>
+
 </div>

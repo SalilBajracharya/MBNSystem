@@ -9,7 +9,7 @@ using System.Net.Mail;
 using System.Runtime.Remoting;
 using System.Security.Cryptography.Pkcs;
 using System.Web;
-using System.Web.Helpers; 
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Razor.Generator;
 using System.Web.Security;
@@ -30,44 +30,44 @@ namespace MBNSystem.Controllers
         [HttpPost]
         public ActionResult AddUserAuthorize(User obj)
         {
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    try
-                    {
-                        User user = new User();
+                    User user = new User();
 
-                        user.UserName = obj.UserName;
-                        user.Email = obj.Email;
-                        user.MobileNo = obj.MobileNo;
-                        user.Password = Membership.GeneratePassword(10, 3);
-                        user.Name = obj.Name;
-                        user.Designation = obj.Designation;
-                        user.RoleId = obj.RoleId;
-                        user.Status = 1;
-                        user.CreatedDate = DateTime.Now;
-                        user.ExpiryDate = DateTime.Now.AddYears(1);
-                        user.LastPwdChangeDate = DateTime.Now;
-                        user.ChangePwd = false;//if 1 force user to reset 
-                        SendMail(user.UserName, user.Email, user.Password, "NewAccount");
-                        db.Users.Add(user);
-                        db.SaveChanges();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    user.UserName = obj.UserName;
+                    user.Email = obj.Email;
+                    user.MobileNo = obj.MobileNo;
+                    user.Password = Membership.GeneratePassword(10, 3);
+                    user.Name = obj.Name;
+                    user.Designation = obj.Designation;
+                    user.RoleId = obj.RoleId;
+                    user.Status = 1;
+                    user.CreatedDate = DateTime.Now;
+                    user.ExpiryDate = DateTime.Now.AddYears(1);
+                    user.LastPwdChangeDate = DateTime.Now;
+                    user.ChangePwd = false;//if 1 force user to reset 
+                    SendMail(user.UserName, user.Email, user.Password, "NewAccount");
+                    db.Users.Add(user);
+                    db.SaveChanges();
 
                 }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            }
             return RedirectToAction("Main", "Home");
         }
 
         public ActionResult EditUser(int userid)
         {
-                var user = db.Users.Where(x => x.UserId == userid).FirstOrDefault();
-                return View(user);
+            var user = db.Users.Where(x => x.UserId == userid).FirstOrDefault();
+            return View(user);
         }
-        
+
         [HttpPost]
         public ActionResult EditUser(User obj)
         {
@@ -91,7 +91,7 @@ namespace MBNSystem.Controllers
                     throw ex;
                 }
             }
-            return RedirectToAction("Index","User");
+            return RedirectToAction("Index", "User");
         }
 
 
@@ -100,8 +100,8 @@ namespace MBNSystem.Controllers
         public ActionResult DeleteUser(int id)
         {
             db.Users.Remove(db.Users.Find(id));
-            db.SaveChanges();   
-            return RedirectToAction("Index","User");
+            db.SaveChanges();
+            return RedirectToAction("Index", "User");
         }
 
         //Forgot Password Actions
@@ -140,12 +140,12 @@ namespace MBNSystem.Controllers
                 }
             }
             ViewBag.Message = message;
-            return View();  
+            return View();
         }
 
 
         [NonAction]
-        public void SendMail(string username, string emailId, string key,string emailFor)
+        public void SendMail(string username, string emailId, string key, string emailFor)
         {
             var verifyUrl = "/Accounts/" + emailFor + "/?vk=" + key;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
@@ -166,7 +166,7 @@ namespace MBNSystem.Controllers
                 subject = "Reset Password";
                 body = "Your reset password link is ready. Please click on the link for resetting your password. </br> <a href=" + link + ">" + link + "</a>";
             }
-           
+
 
 
             var smtp = new SmtpClient
@@ -191,11 +191,11 @@ namespace MBNSystem.Controllers
 
         public ActionResult ResetPassword(string vk)
         {
-            if(string.IsNullOrWhiteSpace(vk))
+            if (string.IsNullOrWhiteSpace(vk))
             {
                 return HttpNotFound();
             }
-          using (MBNSystemEntities db = new MBNSystemEntities())
+            using (MBNSystemEntities db = new MBNSystemEntities())
             {
                 var user = db.UserValidationRequests.Where(x => x.ValidationKey == vk).FirstOrDefault();
 
@@ -206,7 +206,7 @@ namespace MBNSystem.Controllers
                     model.validationKey = vk;
                     return View(model);
                 }
-                else if(user != null && DateTime.Now >= user.ValidationExpiryDate)
+                else if (user != null && DateTime.Now >= user.ValidationExpiryDate)
                 {
                     UserValidationRequest uvr = new UserValidationRequest();
                     user.ValidationStatus = 2;

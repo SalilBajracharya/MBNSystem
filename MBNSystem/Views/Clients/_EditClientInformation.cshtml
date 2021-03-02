@@ -1,0 +1,102 @@
+﻿@model MBNSystem.Models.Client
+
+<div id="editclients">
+    <div class="modal-header">
+        <h3>Edit Clients Information</h3>
+    </div>
+
+    @using (Ajax.BeginForm("_EditClientInformation", "Clients", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        //OnSuccess = "EditClientsSuccess",
+        InsertionMode = InsertionMode.Replace
+    }, new { @id = "form" }))
+    {
+<div id="modal-body" class="modal-body edit-clients-modal-body" tabindex="-1">
+    @Html.HiddenFor(model => model.ClientId)
+    <h4>Edit Information</h4>
+    <hr />
+    <div class="form-group">
+
+        <div class="col-md-12 mb-4">
+            <div class="form-group-col">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+            </div>
+            @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control txt-clientsname", @placeholder = "Client Name" } })
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.PANNo, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.EditorFor(model => model.PANNo, new { htmlAttributes = new { @class = "form-control txt-panno", @placeholder = "Pan no" } })
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
+            {
+            new SelectListItem {Text = "Active", Value = "1"},
+            new SelectListItem {Text = "Discontinued", Value = "9" } }, new
+            {
+                    @class = "form-control tri-state list-box"
+            })
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.AssignedStaffHrid, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.EditorFor(model => model.AssignedStaffHrid, new { htmlAttributes = new { @class = "form-control txt-assignedhr", @placeholder = "Hr ID" } })
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.SBId, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.EditorFor(model => model.SBId, new { htmlAttributes = new { @class = "form-control txt-sbid", @placeholder = "SB ID" } })
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.SBVPN, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.DropDownListFor(model => model.SBVPN, new List<SelectListItem>
+            {
+            new SelectListItem {Text = "Yes", Value = "1"},
+            new SelectListItem {Text = "No", Value = "0" } }, new
+            {
+                    @class = "form-control tri-state list-box"
+            })
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.SMSId, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.EditorFor(model => model.SMSId, new { htmlAttributes = new { @class = "form-control txt-smsid", @placeholder = "SMS ID" } })
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="form-group-col">
+            @Html.LabelFor(model => model.UsesATM, htmlAttributes: new { @class = "control-label" })
+        </div>
+        @Html.DropDownListFor(model => model.UsesATM, new List<SelectListItem>
+            {
+            new SelectListItem {Text = "Yes", Value = "1"},
+            new SelectListItem {Text = "No", Value = "0" } }, new
+            {
+                    @class = "form-control tri-state list-box"
+            })
+    </div>
+
+
+    <div class="modal-footer">
+        <input id="formbtn-editclient" type="submit" value="Save Changes" class="btn btn-primary" />
+    </div>
+</div>
+    }
+</div>

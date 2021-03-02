@@ -89,26 +89,23 @@ namespace MBNSystem.Controllers
         [HttpPost]
         public ActionResult _EditClient(Client obj)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    var client = db.Clients.Where(x => x.ClientId == obj.ClientId).FirstOrDefault();
-                    client.Name = obj.Name;
-                    client.Status = obj.Status;
-                    client.PANNo = obj.PANNo;
-                    //client.AssignedStaffHrid = obj.AssignedStaffHrid;
-                    //client.SBId = obj.SBId;
-                    //client.SBVPN = obj.SBVPN;
-                    //client.SMSId = obj.SMSId;
-                    //client.UsesATM = obj.UsesATM;
-                    db.Entry(client).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                var client = db.Clients.Where(x => x.ClientId == obj.ClientId).FirstOrDefault();
+                client.Name = obj.Name;
+                client.Status = obj.Status;
+                client.PANNo = obj.PANNo;
+                //client.AssignedStaffHrid = obj.AssignedStaffHrid;
+                //client.SBId = obj.SBId;
+                //client.SBVPN = obj.SBVPN;
+                //client.SMSId = obj.SMSId;
+                //client.UsesATM = obj.UsesATM;
+                db.Entry(client).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return RedirectToAction("ClientsList", "Clients");
         }
@@ -121,11 +118,44 @@ namespace MBNSystem.Controllers
             return RedirectToAction("ClientsList", "Clients");
         }
 
-        public ActionResult ClientInformation(int clientid) {
+
+        //Single Client Information
+        public ActionResult ClientInformation(int clientid)
+        {
             var client = db.Clients.Where(x => x.ClientId == clientid).SingleOrDefault();
             return PartialView(client);
         }
 
+        public ActionResult _EditClientInformation(int clientid)
+        {
+            var client = db.Clients.Where(x => x.ClientId == clientid).SingleOrDefault();
+            return PartialView(client);
+        }
+
+        [HttpPost]
+        public ActionResult _EditClientInformation(Client obj)
+        {
+            try
+            {
+                var client = db.Clients.Where(x => x.ClientId == obj.ClientId).SingleOrDefault();
+                client.Name = obj.Name;
+                client.Status = obj.Status;
+                client.PANNo = obj.PANNo;
+                client.AssignedStaffHrid = obj.AssignedStaffHrid;
+                client.SBId = obj.SBId;
+                client.SBVPN = obj.SBVPN;
+                client.SMSId = obj.SMSId;
+                client.UsesATM = obj.UsesATM;
+
+                db.Entry(client).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return RedirectToAction("ClientsList", "Clients");
+        }
     }
 
 }
