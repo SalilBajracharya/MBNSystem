@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1;
+    background-color: #F9FAFC;
 }
 /*
 input {
@@ -21,6 +22,31 @@ ul, li {
     margin: 0;
     padding: 0;
 }
+
+/*---------------- Login Css ----------------*/
+section.header>.container{
+    text-align: center;
+}
+
+section.header>.container>.logo{
+    width: 300px;
+    height: auto;
+    padding: 40px 0;
+}
+
+section.login>.login-form {
+    padding: 25px 40px;
+    border-radius: 3px;
+    box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
+    background-color : #FFFFFF;
+}
+
+section.login>.login-form input{
+    width: 100%;
+}
+
+
+/*---------------- Login Css End ----------------*/
 
 .content .container{
     max-width: 100%;
@@ -158,7 +184,29 @@ ul.usericon-dropdown{
 }
 
 
-/*------------Client Information---------------*/
+/*---------------Client Information---------------*/
 #client-information, #branch-information, #contact-information{
     line-height : 30px;
 }
+
+/*---------------Client Pagination---------------*/
+#client-list-table .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    #client-list-table .pagination .pages {
+        padding: 20px;
+    }
+
+/*---------------User Pagination---------------*/
+#user-list-table .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    #user-list-table .pagination .pages {
+        padding: 20px;
+    }

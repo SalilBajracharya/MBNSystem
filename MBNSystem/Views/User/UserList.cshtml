@@ -1,0 +1,29 @@
+﻿@*@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+<div id="users-content">
+    <div id="user-list" class="container border">
+        <div id="usertable-header">
+            <h2 class="p-3 font-weight-bold" align="center">User Lists</h2>
+
+            <div class="col-lg-12 p-3 mb-3 d-flex justify-content-between">
+                <div class="col-lg-10 search-container" url="/User/UserList/">
+                    <input type="text" id="search" class="col-md-8 form-control txt-user-search float-left mr-3" placeholder="Search...">
+                    <button class="btn btn-default btn-user-search">Search</button>
+                </div>
+                <div class="col-lg-1 float-left">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Supervisor"))
+                        {
+                            <input id="btn-addusers" type="button" class="btn btn-primary float-right" value="Add New User" />
+                        }
+                    }
+                </div>
+            </div>
+
+            @{Html.RenderAction("_UserList", "User");}
+
+        </div>
+    </div>
+</div>

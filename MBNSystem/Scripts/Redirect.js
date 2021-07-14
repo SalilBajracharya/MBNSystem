@@ -82,6 +82,70 @@
         })
     });
 
+/*---------------Client pagination---------------*/
+
+    $('body').on('click', '.btnClientPage', function () {
+        var pageNo = parseInt($('body').find('.pages').attr('pagenumber'));
+        var totalPages = parseInt($('body').find('.pages').attr('totalpages'));
+        var search = $('body').find('.txt-client-search').val();
+        var newPageNo;
+
+        if ($(this).hasClass('btnNextPage') == true) {
+            newPageNo = pageNo + 1;
+        }
+        else {
+            newPageNo = pageNo - 1; 
+        }
+
+        if (pageNo != newPageNo && newPageNo > 0 && newPageNo <= totalPages) {
+            $.ajax({
+                type: "GET",
+                url: "/Clients/_ClientsList",
+                data: { pageNumber: newPageNo, search: search },
+                traditional: true,
+                success: function (data) {
+                    $('body').find('#client-table').html('');
+                    $('body').find('#client-table').append($(data).find('#client-table').html());
+                    $('body').find('.pagination').html('');
+                    $('body').find('.pagination').append($(data).find('.pagination').html());
+                }
+            })
+        }
+       
+    })
+
+/*---------------User Pagination---------------*/
+
+    $('body').on('click', '.btnUserPage', function () {
+        var pageNo = parseInt($('body').find('.pages').attr('pagenumber'));
+        var totalPages = parseInt($('body').find('.pages').attr('totalpages'));
+        var search = $('body').find('.txt-client-search').val();
+        var newPageNo;
+
+        if ($(this).hasClass('btnNextPage') == true) {
+            newPageNo = pageNo + 1;
+        }
+        else {
+            newPageNo = pageNo - 1;
+        }
+
+        if (pageNo != newPageNo && newPageNo > 0 && newPageNo <= totalPages) {
+            $.ajax({
+                type: "GET",
+                url: "/User/_UserList",
+                data: { pageNumber: newPageNo, search: search },
+                traditional: true,
+                success: function (data) {
+                    $('body').find('#user-table').html('');
+                    $('body').find('#user-table').append($(data).find('#user-table').html());
+                    $('body').find('.pagination').html('');
+                    $('body').find('.pagination').append($(data).find('.pagination').html());
+                }
+            })
+        }
+
+    })
+
 /*---------------Contact Person Modal---------------*/
     
     $('body').on('click', '#btn-contactperson', function () {

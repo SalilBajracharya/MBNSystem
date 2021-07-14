@@ -16,7 +16,7 @@ namespace MBNSystem.Controllers
         // GET: Login
         [AllowAnonymous]
         public ActionResult LoginForm()
-        { 
+        {
             if (Session["userID"] == null)
             {
                 return View();
@@ -33,7 +33,7 @@ namespace MBNSystem.Controllers
             using (MBNSystemEntities db = new MBNSystemEntities())
             {
                 var userDetails = db.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password).FirstOrDefault();
-                if(userDetails == null)
+                if (userDetails == null)
                 {
                     TempData["Message"] = "Incorrect Username or Password";
                     return View("LoginForm", user);
@@ -44,9 +44,28 @@ namespace MBNSystem.Controllers
                     Session["username"] = userDetails.UserName;
                     Session["loggedin"] = "loggedin";
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
-                    return RedirectToAction("Main", "Home");
+                    if (user.ChangePwd)
+                    {
+                        return RedirectToAction("Main", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("FirstLogin", "Login");
+                    }
                 }
             }
+        }
+
+        public ActionResult FirstLogin()
+        {
+            return View();
+        }
+        
+
+        [HttpPost]
+        public ActionResult FirstLogin(User model)
+        {
+            return RedirectToAction("LoginForm","Login");
         }
 
         public ActionResult Logout()

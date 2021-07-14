@@ -9,76 +9,47 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
     <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #d3d3d3;
-        }
-        .login-div {
-            background-color: white;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            border: 1px solid #ccc;
-            padding: 40px;
-            transform: translate(-50%, -50%);
-            border-radius: 20px;
-            box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
-        }
-
-        .field-validation-error {
-            color: red;
-        }
-        
-        .logo1{
-            width: 200px;
-            height:auto;
-            padding: 20px;
-        }
-
-        .logo2 {
-            width: 150px;
-            height: auto;
-            padding: 20px;
-        }
-
-    </style>
-
+    <link href="~/Content/css/Site.css" rel="stylesheet" />
 </head>
 <body>
+    <section class="header">
+        <div class="container">
+            <img class="logo" src="~/Content/img/MBNepalLogo.png" />
+        </div>
+    </section>
+    <section id="main">
+        <section class="login">
+            <div class="login-form container col-lg-3" align="center">
+                @using (Html.BeginForm("LoginAuthorize", "Login", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <p class="p-3"><strong>Login to Office System</strong></p>
+                    </div>
 
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Username" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
 
-    <div class="login-div form-group" align="center">
-        @using (Html.BeginForm("LoginAuthorize", "Login", FormMethod.Post))
-        {
-            <div class="form-group">
-                <img src="~/img/MBLogoMain.png" class="logo logo1" />
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { htmlAttributes = new { @class = "text-danger" } })
+                    </div>
+
+                    <label class="field-validation-error">@TempData["Message"]</label>
+
+                    <div class="form-group">
+                        <input type="submit" name="name" value="Login" class="btn btn-default btn-success" />
+                    </div>
+
+                    <hr />
+                    <div class="form-group">
+                        <a href="@Url.Action("ForgotPassword","Accounts")">Can't log in ?</a>
+                    </div>
+                }
             </div>
-
-            <div class="form-group">
-                <img src="~/img/25-years-logo.png" class="logo logo2" />
-            </div>
-
-            <div class="form-group">    
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Username here" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            </div>
-
-            <div class="form-group">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { htmlAttributes = new { @class = "text-danger" } })
-            </div>
-
-            <label class="field-validation-error">@TempData["Message"]</label>
-
-            <div class="form-group">
-                <input type="submit" name="name" value="Login" class="btn btn-default btn-outline-primary" />
-            </div>
-            <div class="form-group">
-                <a href="@Url.Action("ForgotPassword","Accounts")">Forgot Password</a>
-            </div>
-        }
-    </div>
-
+        </section>
+    </section>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

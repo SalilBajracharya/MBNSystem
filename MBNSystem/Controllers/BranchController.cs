@@ -17,11 +17,20 @@ namespace MBNSystem.Controllers
             return PartialView(branchinformation);
         }
 
+        //---------Client Contact Information---------//
         public ActionResult BranchContact(int branchid)
         {
             var contactperson = db.ClientsContacts.Where(x => x.BranchId == branchid).ToList();
             return PartialView(contactperson);
         }
+
+        public ActionResult EditBranchContact(int clientcontactid)  
+        {
+            var clientcontactinfo = db.ClientsContacts.Where(x => x.ClientContactId == clientcontactid).FirstOrDefault();
+            return PartialView(clientcontactinfo);
+        }
+
+        //--------------------------------------------//
 
         public ActionResult _EditBranch(int branchid)
         {

@@ -20,6 +20,8 @@ namespace MBNSystem.Models
         public string MobileNo { get; set; }
         public string EmailId { get; set; }
         public string OfficeExt { get; set; }
+        public string Department { get; set; }
+        public string Designation { get; set; }
     
         public virtual ClientsBranch ClientsBranch { get; set; }
     }

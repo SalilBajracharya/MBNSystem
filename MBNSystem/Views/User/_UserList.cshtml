@@ -1,0 +1,74 @@
+﻿@model MBNSystem.MultiModels.UserView
+@using PagedList.Mvc;
+
+@{ 
+    var i = 1;
+    var sn = ViewBag.SN;
+    var totalPages = Model.Users.PageCount;
+    var currentPage = Model.Users.PageNumber;
+}
+
+<div id="user-list-table">
+    <table id="user-table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile No</th>
+                <th>Designation</th>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Supervisor"))
+                    {
+                        <th></th>
+                        <th></th>
+                    }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model.Users)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.MobileNo</td>
+                    <td>@item.Designation</td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Supervisor"))
+                        {
+                            <td>
+                                @using (Html.BeginForm("DeleteUser", "Accounts", new { id = item.UserId }, FormMethod.Post))
+                                {
+                                    <input class="btn btn-danger" type="submit" value="Delete" />
+                                }
+                            </td>
+                            <td>
+                                <input class="btn btn-light" type="submit" value="Edit" onclick="window.location = '@Url.Action("EditUser", "Accounts", new { userid = item.UserId})'" />
+                            </td>
+                        }
+                    }
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+    @if (Model.Users.Count > 0)
+    {
+        <div class="pagination">
+            <div class="pages" pagenumber="@currentPage" totalpages=" @totalPages">Page @currentPage of @totalPages</div>
+            <div class="nextprevbtn">
+                <button class="btn btn-default btnUserPage btnPrevPage"><i class="fa fa-chevron-left"></i></button>
+                <button class="btn btn-default btnUserPage btnNextPage"><i class="fa fa-chevron-right"></i></button>
+            </div>
+            @Html.HiddenFor(x => totalPages)
+            @Html.HiddenFor(x => currentPage)
+        </div>
+    }
+</div>

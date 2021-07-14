@@ -34,10 +34,13 @@
           <Property Name="EmailId" Type="varchar" MaxLength="500" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MBNSystem.dbo.ClientsContacts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ClientsContacts">
           <Key>
             <PropertyRef Name="ClientContactId" />
             <PropertyRef Name="BranchId" />
+            
           </Key>
           <Property Name="ClientContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BranchId" Type="int" Nullable="false" />
@@ -45,6 +48,8 @@
           <Property Name="MobileNo" Type="varchar" MaxLength="100" />
           <Property Name="EmailId" Type="varchar" MaxLength="500" />
           <Property Name="OfficeExt" Type="varchar" MaxLength="100" />
+          <Property Name="Department" Type="nvarchar" MaxLength="30" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Menus">
           <Key>
@@ -104,7 +109,9 @@ warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary 
           <Property Name="ValidationStatus" Type="int" />
         </EntityType>
         <Association Name="FK_ClientsBranches_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ClientsBranches" Type="Self.ClientsBranches" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -112,18 +119,6 @@ warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary 
             </Principal>
             <Dependent Role="ClientsBranches">
               <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_ClientsContacts_ClientsBranches_BranchId">
-          <End Role="ClientsBranches" Type="Self.ClientsBranches" Multiplicity="1" />
-          <End Role="ClientsContacts" Type="Self.ClientsContacts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClientsBranches">
-              <PropertyRef Name="BranchId" />
-            </Principal>
-            <Dependent Role="ClientsContacts">
-              <PropertyRef Name="BranchId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -186,11 +181,22 @@ warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary 
         <EntityContainer Name="MBNSystemModelStoreContainer">
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientsBranches" EntityType="Self.ClientsBranches" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientsContacts" EntityType="Self.ClientsContacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserValidationRequests" EntityType="Self.UserValidationRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientsContacts" EntityType="Self.ClientsContacts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClientsContacts].[ClientContactId] AS [ClientContactId], 
+    [ClientsContacts].[BranchId] AS [BranchId], 
+    [ClientsContacts].[Name] AS [Name], 
+    [ClientsContacts].[MobileNo] AS [MobileNo], 
+    [ClientsContacts].[EmailId] AS [EmailId], 
+    [ClientsContacts].[OfficeExt] AS [OfficeExt], 
+    [ClientsContacts].[Department] AS [Department], 
+    [ClientsContacts].[Designation] AS [Designation]
+    FROM [dbo].[ClientsContacts] AS [ClientsContacts]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="RolesMenus" EntityType="Self.RolesMenus" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [RolesMenus].[RoleId] AS [RoleId], 
@@ -201,10 +207,6 @@ warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary 
           <AssociationSet Name="FK_ClientsBranches_Clients" Association="Self.FK_ClientsBranches_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="ClientsBranches" EntitySet="ClientsBranches" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_ClientsContacts_ClientsBranches_BranchId" Association="Self.Fk_ClientsContacts_ClientsBranches_BranchId">
-            <End Role="ClientsBranches" EntitySet="ClientsBranches" />
-            <End Role="ClientsContacts" EntitySet="ClientsContacts" />
           </AssociationSet>
           <AssociationSet Name="Fk_RolesMenus_MenuId" Association="Self.Fk_RolesMenus_MenuId">
             <End Role="Menus" EntitySet="Menus" />
@@ -422,6 +424,8 @@ warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary 
           <Property Name="EmailId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OfficeExt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ClientsBranch" Relationship="MBNSystemModel.Fk_ClientsContacts_ClientsBranches_BranchId" FromRole="ClientsContact" ToRole="ClientsBranch" />
+          <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="Fk_ClientsBranches_Clients_ClientId">
           <End Type="MBNSystemModel.Client" Role="Client" Multiplicity="1" />
@@ -557,6 +561,8 @@ warning 6002: The table/view 'MBNSystem.dbo.RolesMenus' does not have a primary 
           <EntitySetMapping Name="ClientsContacts">
             <EntityTypeMapping TypeName="MBNSystemModel.ClientsContact">
               <MappingFragment StoreEntitySet="ClientsContacts">
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="OfficeExt" ColumnName="OfficeExt" />
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
