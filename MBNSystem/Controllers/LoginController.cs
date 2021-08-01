@@ -44,14 +44,15 @@ namespace MBNSystem.Controllers
                     Session["username"] = userDetails.UserName;
                     Session["loggedin"] = "loggedin";
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
-                    if (user.ChangePwd)
-                    {
-                        return RedirectToAction("Main", "Home");
-                    }
-                    else
-                    {
-                        return RedirectToAction("FirstLogin", "Login");
-                    }
+                    //if (user.ChangePwd)
+                    //{
+                    //    return RedirectToAction("Main", "Home");
+                    //}
+                    //else
+                    //{
+                    //    return RedirectToAction("FirstLogin", "Login");
+                    //}
+                    return RedirectToAction("Main", "Home");
                 }
             }
         }
@@ -65,6 +66,11 @@ namespace MBNSystem.Controllers
         [HttpPost]
         public ActionResult FirstLogin(User model)
         {
+            ///
+            ///
+            //
+
+
             return RedirectToAction("LoginForm","Login");
         }
 

@@ -29,7 +29,7 @@ namespace MBNSystem.Controllers
                 Users = db.Users.ToList().ToPagedList(pagenumber, pageSize)
             };
 
-            if (search != null && search == "")
+            if (search != null && search != "")
             {
                 table.Users = db.Users.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList().ToPagedList(pagenumber, pageSize);
             }

@@ -45,24 +45,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" style="color: #343A40 !important;">
                 @*<li class="nav-item">
-                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                    </li>*@
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>*@
                 <li class="nav-item d-none d-sm-inline-block">
                     @Html.ActionLink("Home", "Main", "Home", null, new { @class = "nav-link" })
                 </li>
-
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="@Url.Action("Logout","Login")" class="nav-link">
-                        <i class="fas fa-power-off fa-2x"></i>
-                    </a>
+            <ul>
+                <li class="nav-item dropdown dropdown-gear">
+                    <span style="color: #343A40;">Hello <span style="color: limegreen; font-size: 15px">@Session["username"]!</span></span>
+                    <button class="btn btn-gear dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog" style="color: #343A40; font-size: 22px"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="@Url.Action("ResetPassword","Accounts")">
+                            Change Password
+                        </a>
+                        <a class="dropdown-item" href="@Url.Action("Logout","Login")">
+                            Log Out
+                        </a>
+                    </ul>
                 </li>
-
             </ul>
         </nav>
         <!-- /.navbar -->

@@ -6,6 +6,7 @@
 
 body {
     font-family: Rubik-Regular;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     line-height: 1;
@@ -15,13 +16,6 @@ body {
 input {
     border-radius: 2rem !important;
 }*/
-
-ul, li {
-    text-decoration: none;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
 /*---------------- Login Css ----------------*/
 section.header>.container{
@@ -53,12 +47,17 @@ section.login>.login-form input{
 }
 
 .wrapper{
-    height: 100vh;
+    min-height: calc(100vh-50px);
 }
 
-.main-footer{
-    position: absolute;
-    bottom: 0;
+.main-header{
+    display: flex;
+    justify-content: space-between;
+}
+.main-footer {
+    height: 50px;
+    margin: 0 !important;
+    text-align: center !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -69,6 +68,27 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.dropdown-menu { 
+    width: 10px !important;
+    background-color: #343A40 !important;
+}
+
+.dropdown-item {
+    font-size: 14px !important;
+    color: #ffffff !important;
+}
+
+.dropdown-item:hover {
+    background-color: gray !important;
+}
+
+ul, li {
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /*Sidebar CSS changes*/
@@ -182,7 +202,6 @@ ul.usericon-dropdown{
 .selected {
     background-color: #DCDCDC;
 }
-
 
 /*---------------Client Information---------------*/
 #client-information, #branch-information, #contact-information{
