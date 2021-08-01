@@ -28,7 +28,7 @@ namespace MBNSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginAuthorize(User user)
+        public ActionResult LoginAuthorize(Users user)
         {
             using (MBNSystemEntities db = new MBNSystemEntities())
             {
@@ -64,7 +64,7 @@ namespace MBNSystem.Controllers
         
 
         [HttpPost]
-        public ActionResult FirstLogin(User model)
+        public ActionResult FirstLogin(Users model)
         {
             ///
             ///

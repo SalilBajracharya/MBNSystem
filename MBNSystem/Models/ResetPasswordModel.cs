@@ -17,9 +17,6 @@ namespace MBNSystem.Models
         public string ConfirmPassword { get; set; }
         
         [Required]
-        public string validationKey { get; set; }
-
-         
-
+        public string validationKey { get; set; }       
     }
 }

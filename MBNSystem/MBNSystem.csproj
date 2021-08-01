@@ -146,7 +146,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Client.cs">
       <DependentUpon>MBNSystemEntities.tt</DependentUpon>
     </Compile>
@@ -2145,6 +2145,7 @@
     <Content Include="Views\Branch\EditBranchContact.cshtml" />
     <Content Include="Views\User\_UserList.cshtml" />
     <Content Include="Views\Login\FirstLogin.cshtml" />
+    <Content Include="Views\Accounts\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
