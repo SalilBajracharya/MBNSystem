@@ -30,13 +30,13 @@ namespace MBNSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUserAuthorize(Users obj)
+        public ActionResult AddUserAuthorize(User obj)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Users user = new Users();
+                    User user = new User();
 
                     user.UserName = obj.UserName;
                     user.Email = obj.Email;
@@ -71,7 +71,7 @@ namespace MBNSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditUser(Users obj)
+        public ActionResult EditUser(User obj)
         {
             if (ModelState.IsValid)
             {
@@ -191,11 +191,10 @@ namespace MBNSystem.Controllers
         }
 
         //Get View for Change Password
-        //public ActionResult ChangePassword(int userid)
-        //{
-        //    //Session["userID"] = userDetails.UserId;
-        //    //return View();
-        //}
+        public ActionResult ChangePassword(int userid)
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

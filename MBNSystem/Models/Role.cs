@@ -18,7 +18,7 @@ namespace MBNSystem.Models
         public Role()
         {
             this.RolesMenus = new HashSet<RolesMenu>();
-            this.Users = new HashSet<Users>();
+            this.Users = new HashSet<User>();
         }
     
         public int RoleId { get; set; }
@@ -27,6 +27,6 @@ namespace MBNSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RolesMenu> RolesMenus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

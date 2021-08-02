@@ -27,7 +27,7 @@ namespace MBNSystem.Models
     
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserValidationRequest> UserValidationRequests { get; set; }
         public virtual DbSet<RolesMenu> RolesMenus { get; set; }
         public virtual DbSet<Client> Clients { get; set; }

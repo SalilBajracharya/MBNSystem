@@ -22,6 +22,6 @@ namespace MBNSystem.Models
         public string ValidationPin { get; set; }
         public Nullable<int> ValidationStatus { get; set; }
     
-        public virtual Users User { get; set; }
+        public virtual User User { get; set; }
     }
 }
