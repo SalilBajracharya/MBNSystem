@@ -16,6 +16,7 @@ using System.Web.Razor.Generator;
 using System.Web.Security;
 using System.Web.Services.Description;
 using MBNSystem.Models;
+using MBNSystem.ViewModels;
 
 //-----------------------USER ACCOUNTS MODIFICATION CONTROLLER-----------------------//
 namespace MBNSystem.Controllers
@@ -191,107 +192,98 @@ namespace MBNSystem.Controllers
         }
 
         //Get View for Change Password
-        public ActionResult ChangePassword(int userid)
+        public ActionResult ChangePassword()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public ActionResult ChangePassword(ChangePasswordVM obj)
         {
-            var message = "";
-            if (ModelState.IsValid)
+            int uid = Convert.ToInt32(Session["userID"]);
+            User u = db.Users.Find(uid);
+            if (u.Password == obj.CurrentPassword)
             {
-                //using (MBNSystemEntities db = new MBNSystemEntities())
-
-                //{
-                //    if (model.NewPassword != null && model.ConfirmPassword != null && model.ConfirmPassword == model.NewPassword)
-                    
-                //    {
-                //        user.Password = /*Crypto.Hash(model.NewPassword);*/model.NewPassword;
-                //        db.SaveChanges();
-                //        message = "New Password updated successfully";
-                //    }
-
-                //}
+                u.Password = obj.NewPassword;
+                db.Entry(u).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "New Password updated successfully.";
             }
             else
             {
-                message = "Something went wrong";
+                ViewBag.Message = "Something went wrong.";
+
             }
-
-            ViewBag.Message = message;
-
-
-            return RedirectToAction("Main", "Home");
+            return View("Main", "Home");
         }
+
+        //public ActionResult ResetPassword(string vk)
+        //{
+        //    if (string.IsNullOrWhiteSpace(vk))
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    using (MBNSystemEntities db = new MBNSystemEntities())
+        //    {
+        //        var user = db.UserValidationRequests.Where(x => x.ValidationKey == vk).FirstOrDefault();
+
+
+        //        if (user != null && DateTime.Now < user.ValidationExpiryDate)
+        //        {
+        //            ResetPasswordModel model = new ResetPasswordModel();
+        //            model.validationKey = vk;
+        //            return View(model);
+        //        }
+        //        else if (user != null && DateTime.Now >= user.ValidationExpiryDate)
+        //        {
+        //            UserValidationRequest uvr = new UserValidationRequest();
+        //            user.ValidationStatus = 2;
+        //            uvr.ValidationStatus = user.ValidationStatus;
+        //            db.Configuration.ValidateOnSaveEnabled = false;
+        //            db.SaveChanges();
+        //            return HttpNotFound();
+        //        }
+        //        else
+        //        {
+        //            return HttpNotFound();
+        //        }
+        //    }
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ResetPassword(ResetPasswordModel model)
+        //{
+        //    var message = "";
+        //    if (ModelState.IsValid)
+        //    {
+        //        using (MBNSystemEntities db = new MBNSystemEntities())
+
+        //        {
+        //            var uvr = db.UserValidationRequests.Where(x => x.ValidationKey == model.validationKey).FirstOrDefault();
+        //            if (uvr != null)
+        //            {
+        //                var user = db.Users.Where(x => x.UserId == uvr.UserId).FirstOrDefault();
+        //                user.Password = /*Crypto.Hash(model.NewPassword);*/model.NewPassword;
+        //                user.LastPwdChangeDate = DateTime.Now;
+        //                uvr.ValidationStatus = 1;
+        //                db.Configuration.ValidateOnSaveEnabled = false;
+        //                db.SaveChanges();
+        //                message = "New Password updated successfully";
+        //            }
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        message = "Something went wrong";
+        //    }
+
+        //    ViewBag.Message = message;
+
+
+        //    return View(model);
+        //}
     }
-    //public ActionResult ResetPassword(string vk)
-    //{
-    //    if (string.IsNullOrWhiteSpace(vk))
-    //    {
-    //        return HttpNotFound();
-    //    }
-    //    using (MBNSystemEntities db = new MBNSystemEntities())
-    //    {
-    //        var user = db.UserValidationRequests.Where(x => x.ValidationKey == vk).FirstOrDefault();
-
-
-    //        if (user != null && DateTime.Now < user.ValidationExpiryDate)
-    //        {
-    //            ResetPasswordModel model = new ResetPasswordModel();
-    //            model.validationKey = vk;
-    //            return View(model);
-    //        }
-    //        else if (user != null && DateTime.Now >= user.ValidationExpiryDate)
-    //        {
-    //            UserValidationRequest uvr = new UserValidationRequest();
-    //            user.ValidationStatus = 2;
-    //            uvr.ValidationStatus = user.ValidationStatus;
-    //            db.Configuration.ValidateOnSaveEnabled = false;
-    //            db.SaveChanges();
-    //            return HttpNotFound();
-    //        }
-    //        else
-    //        {
-    //            return HttpNotFound();
-    //        }
-    //    }
-    //}
-
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult ResetPassword(ResetPasswordModel model)
-    //{
-    //    var message = "";
-    //    if (ModelState.IsValid)
-    //    {
-    //        using (MBNSystemEntities db = new MBNSystemEntities())
-
-    //        {
-    //            var uvr = db.UserValidationRequests.Where(x => x.ValidationKey == model.validationKey).FirstOrDefault();
-    //            if (uvr != null)
-    //            {
-    //                var user = db.Users.Where(x => x.UserId == uvr.UserId).FirstOrDefault();
-    //                user.Password = /*Crypto.Hash(model.NewPassword);*/model.NewPassword;
-    //                user.LastPwdChangeDate = DateTime.Now;
-    //                uvr.ValidationStatus = 1;
-    //                db.Configuration.ValidateOnSaveEnabled = false;
-    //                db.SaveChanges();
-    //                message = "New Password updated successfully";
-    //            }
-
-    //        }
-    //    }
-    //    else
-    //    {
-    //        message = "Something went wrong";
-    //    }
-
-    //    ViewBag.Message = message;
-
-
-    //    return View(model);
-    //}
 }
